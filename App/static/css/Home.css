@@ -1,0 +1,27 @@
+body{
+    width: 1920px; height: 1200px;
+    overflow-y:hidden;
+    margin:0; padding:0;
+
+    -ms-user-select: none; -moz-user-select: -moz-none; -webkit-user-select: none; -khtml-user-select: none; user-select:none;
+}
+
+.header{
+    height:310px;
+}
+
+.title_bar{
+    width:1920px; height:210px;
+
+    font-size: 30px;
+    margin:0; padding:0;
+    background-color: #DA212720;
+}
+h1{
+    height:180px;
+    margin:0px 20px; padding:20px 40px 0px 40px;
+}
+
+ul{list-style: none;}
+a{color:#000; text-decoration:none;}
+

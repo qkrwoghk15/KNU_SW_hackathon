@@ -18,17 +18,45 @@ category_index = {"공지사항": 'announce',
 app = Flask(__name__)
 app.secret_key = 'secret_key' #session secret key
 
-@app.route('/', methods=['GET'])
-def computer():
-	return render_template('com.html')
+@app.route('/category/<string:selected>', methods=['GET', 'POST'])
+def category(selected):
+	# GET request
+	if request.method == 'GET':
+		if selected not in ["공지사항", "취업정보", "학부인재모집"]:
+			return 'Not Found', 404
 
-@app.route('/', methods=['GET'])
-def knucube():
-	return render_template('cube.html')
+		data = my_pkg.load_data(category_url[selected], category_index[selected])
+		return json.dumps(data, ensure_ascii=False)
+
+	# POST request
+	if request.method == 'POST':
+		print(request.get_json())  # parse as JSON
+		return 'Sucesss', 200
+
+@app.route('/<site>', methods=['GET'])
+def site_load(site):
+	reset_session()
+	if site=="컴퓨터학부":
+		data = my_pkg.load_data(category_url["공지사항"], category_index["공지사항"])
+		return json.dumps(data, ensure_ascii=False)
+	elif site=="knucube":
+		data = my_pkg.load_data(category_url["공지사항"], category_index["공지사항"])
+		return json.dumps(data, ensure_ascii=False)
 
 @app.route('/', methods=['GET'])
 def home():
-	return render_template('com.html')
+	reset_session()
+	return render_template('home.html')
+
+@app.before_first_request
+def reset_session():
+	for index in category_index.values():
+		session.pop(index, None)
+
+@app.before_request
+def make_session_permanent():
+	session.permanent = True
+	app.permanent_session_lifetime = timedelta(minutes=10)
 
 if __name__ == '__main__':
 	try:

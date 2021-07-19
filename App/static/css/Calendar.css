@@ -1,0 +1,38 @@
+.calendar_div {
+    width: 691px; height: 900px;
+    padding : 0 30px;
+    justify-content: center;
+}
+#calendar {
+    padding:0; margin:3% 0 0 3%;
+    border: 5px ridge #DA2127;
+    border-top-left-radius: 3%; 
+    border-top-right-radius: 3%;
+    font-size: 21px; font-weight: 400; font-family: 'Noto Sans KR', sans-serif;
+}
+
+thead tr {
+    background: #DA2127;
+    color: white;
+    font-size: 36px; font-weight: 700; font-family: 'Noto Sans KR', sans-serif; 
+    
+    text-align: center;
+}
+thead tr td {
+    padding: 1% 0 1% 0; margin: 0;
+}
+.img_btn {
+    width:45px; height:45px;
+}
+
+/* day of week class */
+.dow { 
+    font-weight:bold;
+}
+
+tbody td{
+    position:relative;
+    width: 120px; height: 70px; 
+    text-align:center;
+    border: 3px solid rgba(0,0,0,0); border-radius: 8px;
+}

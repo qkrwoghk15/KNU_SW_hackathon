@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<title>HomePage</title>
+
+		<!-- css -->
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/Home.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/Calendar.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/Notices.css') }}">
+	</head>
+	<body>
+		<div class="header">
+			<div class = "title_bar">
+				<h1>
+					<span style="color: red; font-family: 'Odibee Sans', cursive;">KNU</span> <span style="font-size: 38px; font-weight: 400; font-family: 'Noto Sans KR', sans-serif; color: #1d1d1d90;">경북대학교 공지사항</span><br>
+					<div class="dropdown-container">
+						<button class="dropdown-button main-button">
+							<span class="dropdown-title-icon">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 48">
+									<image xlink:href="{{ url_for('static', filename='images/computer-logo.png') }}"/>
+								</svg>
+							</span>
+							<span class="dropdown-title text-truncate">컴퓨터학부</span>
+							<span class="dropdown-arrow">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+									<path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+								</svg>
+							</span>
+						</button>
+						<form method="GET" action="/">
+							<div class="dropdown-list-container">
+								<div class="dropdown-list-wrapper">
+									<ul class="dropdown-list"></ul>
+									<div class="floating-icon" aria-hidden="true"></div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<span id="title" style="font-family: 'Noto Sans KR:wght', sans-serif; font-weight: 700; margin-left:80px;">컴퓨터학부</span>
+				</h1>
+			</div>
+	
+			<div class = "action_bar">
+				<span class="search_bar">
+					<span class="input_window"><input id="search" type="text" class='input_text' name="search" placeholder="검색어를 입력하세요" onkeydown="enterSearch(event)"/></span>
+					<input type="image" src="{{ url_for('static', filename='images/search_icon.png') }}" alt="검색" title="검색" spellcheck="false"
+							class='search_btn'  onclick="doSearch(-1)" />
+				</span>
+			</div>
+		</div>
+
+		<div style="clear:both"></div>
+
+		<div class = "contents">
+			<div class = "calendar_div">
+					<table id="calendar">
+						<thead>
+							<tr>
+							<td style="border:0px; border-top-left-radius: 10%;"> 
+								<input type="image" src="{{ url_for('static', filename='images/prev_icon.png') }}" 
+										alt="<" title="이전 달" class="img_btn" onclick="prevCalendar()" /> </td>
+							<td align="center" id="tbCalendarYM" colspan="5"></td>
+							<td style="border:0px; border-top-right-radius: 10%;"> 
+								<input type="image" src="{{ url_for('static', filename='images/next_icon.png') }}" 
+										alt=">" title="다음 달" class="img_btn" onclick="nextCalendar()" /> </td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+							<td class='dow'><font color = "red">일</td>
+							<td class='dow'>월</td>
+							<td class='dow'>화</td>
+							<td class='dow'>수</td>
+							<td class='dow'>목</td>
+							<td class='dow'>금</td>
+							<td class='dow'><font color = "blue">토</td>
+							</tr>
+						</tbody>
+					</table>
+			</div>
+			
+			<div class = "notices">
+				<!-- 공지내용 -->
+			</div>
+		</div>
+
+		<!-- js -->
+		<script src="{{ url_for('static', filename='js/Home.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/Components/Calendar.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/Components/Notices.js') }}"></script>
+	</body>
+</html>
