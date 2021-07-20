@@ -25,3 +25,89 @@ h1{
 ul{list-style: none;}
 a{color:#000; text-decoration:none;}
 
+.textFitted, .textFitAlignVert{
+    padding:0; margin:0;
+}
+
+/**************************** action bar ****************************/
+.action_bar{
+    position:relative;
+    display:inline-flex;
+    width:1920px; height:40px;
+    background:#DA212720;
+}
+
+/**************************** category button ****************************/
+.category_btn {
+    float:left;
+    margin-left: 40px;
+    width: 900px;
+    position:relative;
+    z-index:1;
+}
+.category_btn>li{
+    float: left; 
+    width: 200px; height: 50px; 
+    margin-right: 12px;
+    position:relative;
+    top: -21px;
+    list-style:none;
+}
+.category_btn>li>.btn{
+    display:block; 
+    width: 100%; height:100%;
+    font-size: 21px; font-weight: 400; font-family: 'Noto Sans KR', sans-serif; 
+    text-align: center; line-height: 48px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 13px 27px -15px #DA2127;
+}
+.category_btn>li>.btn:hover,
+.category_btn>li>.selected{ 
+    color: #DA2127;
+    font-weight: 700;
+    box-shadow: 0 13px 15px -10px #DA2127;
+}
+
+/**************************** search ****************************/
+.search_bar {
+    position:relative;
+    top:-4px;
+    float:left;
+    width:891px;
+    margin: 15px 105px 0px 55px;
+}
+.input_window {
+    display: inline-flex;
+    width: 80%; height: 40px;
+    border: 3px solid #DA2127;
+    border-radius: 5px;
+    background: white;
+}
+.input_text {
+    width: 90%; height: 30px;
+    margin: 6px 0 0 6px;
+    border: 0;
+    line-height: 30px;
+    font-size: 18px; font-weight: 400; font-family: 'Noto Sans KR', sans-serif;
+    outline: none;
+}
+.search_btn {
+    width: 45px; height: 45px;
+    margin: 0; border: 0;
+    vertical-align: top;
+    background: #DA2127;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/**************************** contents ****************************/
+.contents {
+    display: flex;
+    align-items:flex-start;
+    width: 1920px; height: 960px;
+}
+
+.contents>div{
+    margin: 0 10px;
+}

@@ -7,6 +7,9 @@
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/Home.css') }}">
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/Calendar.css') }}">
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/Notices.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/TabMenu.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/DropDown.css') }}">
+
 	</head>
 	<body>
 		<div class="header">
@@ -41,6 +44,19 @@
 			</div>
 	
 			<div class = "action_bar">
+				<ul class = "category_btn computer">
+					<form class = "category_form" method="POST" action = "/category"></form>
+						<li><a href='javascript:void(0);' class = "btn selected" id="__notice" onclick="setCategory(this)">공 지 사 항</a></li>
+						<li><a href='javascript:void(0);' class = "btn" id="__employ_inf" onclick="setCategory(this)">취 업 정 보</a></li>
+						<li><a href='javascript:void(0);' class = "btn" id="__university_recruitment" onclick="setCategory(this)">학부인재모집</a></li>
+					</form>
+				</ul>
+	
+				<div class = "tab__menu computer">
+					<span><input type='checkbox' id="x__day_tab" name='filter__d__day' value='x__day_notice' checked="checked" onchange="checkedChangeHandler(this)"/><label for="x__day_tab" onclick="toggleCheckBox(this)">항시</label></span>
+					<span><input type='checkbox' id="d__day_tab" name='filter__d__day' value='d__day_notice' checked="checked" onchange="checkedChangeHandler(this)"/><label for="d__day_tab" onclick="toggleCheckBox(this)">기한</label></span>
+				</div>
+				
 				<span class="search_bar">
 					<span class="input_window"><input id="search" type="text" class='input_text' name="search" placeholder="검색어를 입력하세요" onkeydown="enterSearch(event)"/></span>
 					<input type="image" src="{{ url_for('static', filename='images/search_icon.png') }}" alt="검색" title="검색" spellcheck="false"
@@ -88,5 +104,8 @@
 		<script src="{{ url_for('static', filename='js/Home.js') }}"></script>
 		<script src="{{ url_for('static', filename='js/Components/Calendar.js') }}"></script>
 		<script src="{{ url_for('static', filename='js/Components/Notices.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/Components/TabMenu.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/Components/DropDown.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/Functions/textFit.js') }}"></script>
 	</body>
 </html>

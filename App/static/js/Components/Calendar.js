@@ -62,3 +62,65 @@ function makeCalendar(){
         }
     }
 }
+
+function clickHandler(obj){
+    drawBorder(obj);
+    document.getElementById("search").value=""
+    showValid(parseInt(obj.innerText));
+}
+
+function drawBorder(obj){
+    if (selectedDay!="None")
+        selectedDay.style.border = "3px solid rgba(0,0,0,0)";
+    obj.parentNode.style.border = "3px solid #DA212780";
+    selectedDay = obj.parentNode
+}
+
+function showValid(num){
+    resetValid()
+    resetFilter()
+    cnt = 0
+    for (let j = 0; j<noticeList.length; j++) {
+        if(!isValid(j,num)){
+            filter(j)
+        }
+        else{
+            cnt ++
+        }
+    }
+}
+
+function isValid(j,num){
+    temp = noticeList[j].registrationDate.split('-')
+    Rday = monthToDate[Number(temp[1])] + Number(temp[2])
+    Dday = Number(noticeList[j].remainDays)+dates.getDate() + monthToDate[dates.getMonth()+1]
+    Nday = num+monthToDate[today.getMonth()+1]
+    if ( (Nday>=Rday && Nday<=Dday)){
+        if (Nday==Dday){
+            return 2
+        }
+        return 1
+    }
+    else return 0
+}
+
+function Pointing(noticeList){
+    var lastDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+    for (i=1; i<=lastDate.getDate(); i++) {
+        const divId = today.getFullYear() + "-" +
+                        fillZero(today.getMonth() + 1, 2) + "-" +
+                        fillZero(i, 2);
+
+        thisDiv = document.getElementById(divId)
+
+        v = -1
+        for (let j = 0; j<noticeList.length; j++){
+            v=isValid(j,i)
+            if (v==2) break
+        }
+        
+        if (v==2){
+            thisDiv.innerHTML += redPoint
+        }
+    }
+}
