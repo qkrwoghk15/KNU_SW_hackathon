@@ -1,0 +1,131 @@
+.tab__menu {  
+    display: inline-flex;
+    position: relative;
+    left: 675px; top: -20px;
+    width: 250px;
+
+    font-size: 18px;font-family: 'Noto Sans KR:wght', sans-serif; font-weight: 700;
+    text-align:center;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+}
+.tab__menu>span {
+    margin:0px 10px;
+}
+/* .tab__menu div:nth-child(3){ border:2px solid #ff3535; border-radius: 8px; } */
+
+.where {
+    display: block;
+    margin: 25px 15px;
+    font-size: 11px;
+    color: #000;
+    text-decoration: none;
+    font-family: verdana;
+    font-style: italic;
+}
+
+.tab__menu input[type="checkbox"] {  /* 실제 체크박스는 화면에서 숨김 */
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip:rect(0,0,0,0);
+    border: 0
+}
+.tab__menu input[type="checkbox"] + label {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    padding-left: 30px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+.tab__menu input[type="checkbox"] + label:before {  /* 가짜 체크박스 */  
+    box-shadow: none;
+    content: ' ';
+    display: inline-block;
+    width: 16px;  /* 체크박스의 너비를 지정 */
+    height: 16px;  /* 체크박스의 높이를 지정 */
+    line-height: 16px; /* 세로정렬을 위해 높이값과 일치 */
+    margin: 5px 0 0 0;
+    opacity: .6;
+    text-align: center; 
+    vertical-align: middle;
+    background: #fafafa;
+    border: 1px solid #DA2127;
+    border-radius : 3px;
+    box-shadow: 0px 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+    -webkit-transition: all .12s, border-color .08s;
+    transition: all .12s, border-color .08s;
+
+    position: absolute;
+    left: 3;
+    top: 0;
+}
+.tab__menu input[type="checkbox"] + label:active:before,
+.tab__menu input[type="checkbox"]:checked + label:active:before {
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+}
+
+.tab__menu input[type="checkbox"]:checked + label:before {  /* 체크박스를 체크했을때 */ 
+    content: '\2714';  /* 체크표시 유니코드 사용 */
+    color: #99a1a7;
+    text-shadow: 1px 1px #fff;
+    background: #e9ecee;
+    border-color: #adb8c0;
+    box-shadow: 0px 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
+
+    position: absolute;
+    content: "";
+    width: 10px;
+    top: -5px;
+    left: 5px;
+    border-radius: 0;
+    opacity:1; 
+    background: transparent;
+    border-color:transparent #DA2127 #DA2127 transparent;
+    border-top-color:transparent;
+    border-left-color:transparent;
+    -ms-transform:rotate(45deg);
+    -webkit-transform:rotate(45deg);
+    transform:rotate(45deg);
+}
+
+.no-csstransforms .tab__menu input[type="checkbox"]:checked + label:before {
+    /*content:"\2713";*/
+    content: "\2714";
+    top: 0;
+    left: 0;
+    width: 21px;
+    line-height: 21px;
+    color: #DA2127;
+    text-align: center;
+    border: 1px solid #DA2127;
+}
+
+
+/* 
+input[type="checkbox"] {
+    display:none;
+}
+
+label:hover{
+    color: #2e9cdf;
+    cursor: pointer;
+}
+
+input[type="checkbox"]:checked + label {
+    color: #555;
+    border: 1px solid #ddd;
+    border-top:3px solid #DA212750;
+    border-bottom: 1px solid #ddd;
+    border-top-left-radius: 20%; 
+    border-top-right-radius: 20%;
+
+    box-shadow: 0 13px 20px -5px #DA2127,
+            0 8px 10px -8px #DA2127, 0 -6px 10px -6px #DA2127; 
+} 
+*/

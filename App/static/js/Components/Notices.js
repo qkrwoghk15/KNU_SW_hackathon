@@ -1,5 +1,18 @@
 let result = 0;
 let isFiltered = false;
+let noticeList = [], x_day_noticeList = [], d_day_noticeList = [], not_valid_notice = []
+
+function displayLoading(){
+    document.querySelector(".notices").innerHTML = 
+        "<div class='notice' onmouseout='outNotice(event)' onmouseover='overNotice(event)' style='cursor:pointer; cursor: hand; margin: auto; margin-top: calc( 25% - 115.5px );'>" 
+        + "<span class='remainDays'>기한</span>"
+        + "<h5 class='notice__year'>등록일</h5>"
+        + "<p class='notice__genres'>작성자</p>"
+        + "<h3 class='notice__title'>&nbsp;&nbsp;공지</h3>"
+        + "<div class='loading-container'><div class='loading'></div><div id='loading-text'>loading</div></div>"
+        + "<div class='notice__summary' style='top: 95%;'>공지 내용</div>"
+        + "</div>";
+}
 
 function showList(noticeList){
     let list = ""
@@ -31,3 +44,131 @@ function showList(noticeList){
     }
     document.querySelector(".notices").innerHTML = list;
 }
+
+///////////////////////////////// Get yyyy-mm-dd form date /////////////////////////////////
+function fillZero(num, len){
+    str = num.toString();
+    return str.length >= len ? str:new Array(len-str.length+1).join('0')+str;//남는 길이만큼 0으로 채움
+}
+
+function getTimeStamp(d, d_day_num) {
+    temp_d = d
+    temp_d.setDate(temp_d.getDate()+d_day_num)
+    let s =
+        fillZero(temp_d.getFullYear(), 4) + '-' +
+        fillZero(temp_d.getMonth() + 1, 2) + '-' +
+        fillZero(temp_d.getDate(), 2);
+
+    return s;
+}///////////////////////////////// Get yyyy-mm-dd form date /////////////////////////////////
+
+function unSetHighlightingDiv(){
+    highlightedDiv.forEach( function(div){
+        div.style.visibility = 'hidden';
+    });
+    highlightedDiv = new Array();
+}
+
+function setHighlightingDiv(startDate, endDate){
+    let curDate = startDate;
+    
+    while (curDate <= endDate) {
+        tempDiv = document.getElementById(getTimeStamp(curDate, 0)).getElementsByClassName('highlitLine')[0]
+        tempDiv.style.visibility = 'visible';
+        highlightedDiv.push(tempDiv)
+        curDate.setDate(curDate.getDate()+1)
+    }
+}
+
+function highlightingOnCalendar(obj){
+    let d_day_text = obj.innerText.split("\n")[0]
+    let d_day_num = parseInt(d_day_text.split("-")[1])
+    let startDateStr = obj.innerText.split("\n")[1]
+    let endDateStr = getTimeStamp(new Date(), d_day_num)
+    let startDate = new Date(startDateStr)
+    let endDate = new Date(endDateStr)
+    
+    //startDate가 이전 달인 경우 6 < 7
+    if (today.getMonth() > startDate.getMonth())
+        startDate = new Date(today.getFullYear(), today.getMonth(), 1);
+    if (today.getMonth() < endDate.getMonth())
+        endDate = new Date(today.getFullYear(), today.getMonth()+1, 0, 9);
+    
+    setHighlightingDiv(startDate, endDate)
+}
+
+function outNotice(event){
+    unSetHighlightingDiv();
+    event.currentTarget.getElementsByClassName('notice__summary')[0].style.visibility='hidden';
+}
+
+function overNotice(event){
+    highlightingOnCalendar(event.currentTarget);
+    event.currentTarget.getElementsByClassName('notice__summary')[0].style.visibility='visible';
+}
+
+///////////////////////////////// Search Function /////////////////////////////////
+function resetValid(){
+    for (let i=0; i<noticeList.length; i++) {
+        let notice = document.getElementById("notice_"+i)
+        if (notice.classList.contains("not_valid"))
+            notice.classList.remove("not_valid");
+    }
+}
+
+function resetFilter(){
+    isFiltered = false;
+    for (let i=0; i<noticeList.length; i++) {
+        let notice = document.getElementById("notice_"+i)
+        if ( (document.getElementById(notice.classList[1]+'_tab').checked == true) && (notice.classList.contains("not_valid") == false)){
+            notice.classList.remove("filtered");
+            notice.style.display = "inline-block";
+        }
+    }
+}
+
+function filter(key){
+    isFiltered = true;
+    if (key < 0){ //search action
+        let count = 0;
+        key = document.getElementById("search").value.toUpperCase();
+        for (let i=0; i<noticeList.length; i++) {
+            let notice = document.getElementById("notice_"+i)
+            if (notice.innerText.toUpperCase().indexOf(key) > -1){
+                count+=1;
+            } else {
+                notice.classList.add("filtered");
+                notice.style.display = "none";
+            }
+        }
+        return count;
+    }
+    else{ //calendar click action
+        let notice = document.getElementById("notice_"+ key)
+        notice.classList.add("not_valid");
+        notice.style.display = "none";
+    }
+}
+
+function doSearch(key) {
+    resetFilter();
+    result = filter(key);
+}
+
+function enterSearch(event) {
+    if(event.keyCode == 13){ //엔터 키 입력
+        doSearch(-1);
+    }
+    else if (event.keyCode == 8 && document.getElementById("search").value.length==1){//입력 창 값 다 지울때
+        resetFilter();
+    }
+    else if (isFiltered && document.getElementById("search").value == document.getSelection()){//전체 선택 후 아무 키
+        resetFilter();
+    }
+}
+
+function keywordSearch(event) {
+    event.stopPropagation();
+    document.getElementById("search").value = event.currentTarget.innerText.slice(1)
+    doSearch(-1);
+}///////////////////////////////// Search Function /////////////////////////////////
