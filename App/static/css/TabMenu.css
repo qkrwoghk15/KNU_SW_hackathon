@@ -12,7 +12,6 @@
 .tab__menu>span {
     margin:0px 10px;
 }
-/* .tab__menu div:nth-child(3){ border:2px solid #ff3535; border-radius: 8px; } */
 
 .where {
     display: block;
@@ -95,37 +94,14 @@
 }
 
 .no-csstransforms .tab__menu input[type="checkbox"]:checked + label:before {
-    /*content:"\2713";*/
+    width: 21px;
+
     content: "\2714";
     top: 0;
     left: 0;
-    width: 21px;
+    
     line-height: 21px;
     color: #DA2127;
     text-align: center;
     border: 1px solid #DA2127;
 }
-
-
-/* 
-input[type="checkbox"] {
-    display:none;
-}
-
-label:hover{
-    color: #2e9cdf;
-    cursor: pointer;
-}
-
-input[type="checkbox"]:checked + label {
-    color: #555;
-    border: 1px solid #ddd;
-    border-top:3px solid #DA212750;
-    border-bottom: 1px solid #ddd;
-    border-top-left-radius: 20%; 
-    border-top-right-radius: 20%;
-
-    box-shadow: 0 13px 20px -5px #DA2127,
-            0 8px 10px -8px #DA2127, 0 -6px 10px -6px #DA2127; 
-} 
-*/
