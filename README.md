@@ -1,7 +1,5 @@
 # KNU_SW_hackathon
 
-# OSP_project_team6
-
 <!-- TABLE OF CONTENTS -->
 <details open="open">
   <summary>Table of Contents</summary>
@@ -63,7 +61,7 @@
 ## About the Project
 
 ### UI
-![image](https://user-images.githubusercontent.com/20639714/117573992-079c1b00-b116-11eb-8357-a141c950e404.png)
+![image](https://user-images.githubusercontent.com/20639714/126653070-348cd42d-7db7-4202-bf9a-2506f905fac1.png)
 
 ### Components
   1. 카테고리버튼(공지사항 / 취업정보 / 학부인재모집)  
