@@ -33,7 +33,7 @@ a{color:#000; text-decoration:none;}
 .action_bar{
     position:relative;
     display:inline-flex;
-    width:1920px; height:40px;
+    width:1920px; height:20px;
     background:#DA212720;
 }
 
@@ -50,7 +50,7 @@ a{color:#000; text-decoration:none;}
     width: 200px; height: 50px; 
     margin-right: 12px;
     position:relative;
-    top: -21px;
+    top: -32px;
     list-style:none;
 }
 .category_btn>li>.btn{
@@ -72,7 +72,7 @@ a{color:#000; text-decoration:none;}
 /**************************** search ****************************/
 .search_bar {
     position:relative;
-    top:-4px;
+    top:-16px;
     float:left;
     width:891px;
     margin: 15px 105px 0px 55px;

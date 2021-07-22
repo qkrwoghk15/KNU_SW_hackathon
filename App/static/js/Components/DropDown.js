@@ -7,7 +7,7 @@ const floatingIcon = document.querySelector(".floating-icon");
 const title = document.querySelector("#title");
 const category_btn = document.querySelector(".category_btn");
 const tab_menu = document.querySelector(".tab__menu");
-let selectedSite = "computer"
+let selectedSite = "컴퓨터학부"
 
 function getSite(site, method){
     displayLoading();
@@ -21,7 +21,6 @@ function getSite(site, method){
             return response.text();
         }).then(function (data) {
             data = JSON.parse(data)
-            queryUrl = data.query_url;
             noticeList = data.notice_list
             showList(noticeList);
             Pointing(noticeList);
@@ -124,6 +123,7 @@ dropdownList.addEventListener("mouseover", (e) => {
 
 dropdownList.addEventListener("click", (e) => {
     e.preventDefault();
+
     const clickedItemText = e.target.innerText.toLowerCase().trim();
     const clickedItemIcon = icons[clickedItemText];
     const clickedItemIconBox = iconViewBoxSize[clickedItemText];
@@ -139,6 +139,7 @@ dropdownList.addEventListener("click", (e) => {
     
     selectedCategoryID = "__notice"
 
+    selectedSite = clickedItemText
     getSite(clickedItemText, "get")
 
     setDropdownProps(0, 0, 0);

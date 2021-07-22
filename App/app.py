@@ -13,7 +13,8 @@ category_url = {"공지사항": u'https://cse.knu.ac.kr/06_sub/02_sub.html',
 				"학부인재모집": u'https://cse.knu.ac.kr/06_sub/04_sub.html'}
 category_index = {"공지사항": 'announce',
 				"취업정보": 'employ',
-				"학부인재모집": 'recruit'}
+				"학부인재모집": 'recruit',
+				"knucube": 'knucube'}
 
 app = Flask(__name__)
 app.secret_key = 'secret_key' #session secret key
@@ -25,7 +26,7 @@ def category(selected):
 		if selected not in ["공지사항", "취업정보", "학부인재모집"]:
 			return 'Not Found', 404
 
-		data = my_pkg.load_data(category_url[selected], category_index[selected])
+		data = my_pkg.load_computer_data(category_url[selected], category_index[selected])
 		return json.dumps(data, ensure_ascii=False)
 
 	# POST request
@@ -37,10 +38,10 @@ def category(selected):
 def site_load(site):
 	reset_session()
 	if site=="컴퓨터학부":
-		data = my_pkg.load_data(category_url["공지사항"], category_index["공지사항"])
+		data = my_pkg.load_computer_data(category_url["공지사항"], category_index["공지사항"])
 		return json.dumps(data, ensure_ascii=False)
 	elif site=="knucube":
-		data = my_pkg.load_data(category_url["공지사항"], category_index["공지사항"])
+		data = my_pkg.load_cube_data("knucube")
 		return json.dumps(data, ensure_ascii=False)
 
 @app.route('/', methods=['GET'])

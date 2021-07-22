@@ -6,8 +6,8 @@ function displayLoading(){
     document.querySelector(".notices").innerHTML = 
         "<div class='notice' onmouseout='outNotice(event)' onmouseover='overNotice(event)' style='cursor:pointer; cursor: hand; margin: auto; margin-top: calc( 25% - 115.5px );'>" 
         + "<span class='remainDays'>기한</span>"
-        + "<h5 class='notice__year'>등록일</h5>"
-        + "<p class='notice__genres'>작성자</p>"
+        + (selectedSite=="컴퓨터학부" ? "<p class='notice__genres'>작성자</p>" : "<h5 class='notice__year'>등록일</h5>")
+        + (selectedSite=="컴퓨터학부" ? "<h5 class='notice__year'>등록일</h5>" : "<h5 class='notice__year'>기한일</h5>")
         + "<h3 class='notice__title'>&nbsp;&nbsp;공지</h3>"
         + "<div class='loading-container'><div class='loading'></div><div id='loading-text'>loading</div></div>"
         + "<div class='notice__summary' style='top: 95%;'>공지 내용</div>"
@@ -18,12 +18,20 @@ function showList(noticeList){
     let list = ""
     for (let i = 0; i<noticeList.length; i++) {
         let remainDaySpan = "", keywordHtml = ""
-        if (noticeList[i].remainDays == '99999'){ //항시
-            x_day_noticeList.push(noticeList[i])
-            list += "<div class='notice x__day'"
-            remainDaySpan = "<span class='remainDays'>항 시</span>"
+
+        if (selectedSite=="컴퓨터학부"){
+            if (noticeList[i].remainDays == '99999'){ //항시
+                x_day_noticeList.push(noticeList[i])
+                list += "<div class='notice x__day'"
+                remainDaySpan = "<span class='remainDays'>항 시</span>"
+            }
+            else { //공지
+                d_day_noticeList.push(noticeList[i])
+                list += "<div class='notice d__day'"
+                remainDaySpan = "<span class='remainDays'>D - <span style='font-size:16px;'>"+ noticeList[i].remainDays +"</span></span>"
+            }
         }
-        else { //공지
+        else{
             d_day_noticeList.push(noticeList[i])
             list += "<div class='notice d__day'"
             remainDaySpan = "<span class='remainDays'>D - <span style='font-size:16px;'>"+ noticeList[i].remainDays +"</span></span>"
@@ -33,10 +41,11 @@ function showList(noticeList){
             keywordHtml += "<span class='notice__keyword' onclick=\"keywordSearch(event)\"'>#"+noticeList[i].keywords[j]+"</span>"
         }
 
-        list += "id=notice_" + i + " onmouseout='outNotice(event)' onmouseover='overNotice(event)' onclick=\"window.open('" + queryUrl + noticeList[i].link + "')\" style='cursor:pointer; cursor: hand;'>" 
+        list += "id=notice_" + i + " onmouseout='outNotice(event)' onmouseover='overNotice(event)' onclick=\"window.open('" 
+                + (selectedSite=="컴퓨터학부" ? queryUrl : "") + noticeList[i].link + "')\" style='cursor:pointer; cursor: hand;'>" 
                 + remainDaySpan
-                + "<h5 class='notice__year'>" + noticeList[i].registrationDate + "</h5>"
-                + "<p class='notice__genres'>" + noticeList[i].writer + "</p>"
+                + "<h5 class='notice__year'>" + (selectedSite=="컴퓨터학부" ? noticeList[i].registrationDate : noticeList[i].endDate) + "</h5>"
+                + (selectedSite=="컴퓨터학부" ? "<p class='notice__genres'>" + noticeList[i].writer + "</p>" : "<h5 class='notice__year'>" + noticeList[i].startDate + "</h5>")
                 + "<h3 class='notice__title'>" + noticeList[i].title + "</h3>"
                 + keywordHtml
                 + "<div class='notice__summary'>" + noticeList[i].summary + "</div>"
@@ -83,7 +92,7 @@ function setHighlightingDiv(startDate, endDate){
 function highlightingOnCalendar(obj){
     let d_day_text = obj.innerText.split("\n")[0]
     let d_day_num = parseInt(d_day_text.split("-")[1])
-    let startDateStr = obj.innerText.split("\n")[1]
+    let startDateStr = (selectedSite=="컴퓨터학부" ? obj.innerText.split("\n")[1] : obj.innerText.split("\n")[2])
     let endDateStr = getTimeStamp(new Date(), d_day_num)
     let startDate = new Date(startDateStr)
     let endDate = new Date(endDateStr)
@@ -120,10 +129,18 @@ function resetFilter(){
     isFiltered = false;
     for (let i=0; i<noticeList.length; i++) {
         let notice = document.getElementById("notice_"+i)
-        if ( (document.getElementById(notice.classList[1]+'_tab').checked == true) && (notice.classList.contains("not_valid") == false)){
-            notice.classList.remove("filtered");
-            notice.style.display = "inline-block";
+        if (selectedSite=="컴퓨터학부"){
+            if ( (document.getElementById(notice.classList[1]+'_tab').checked == true) && (notice.classList.contains("not_valid") == false)){
+                notice.classList.remove("filtered");
+                notice.style.display = "inline-block";
+            }
+        } else {
+            if (notice.classList.contains("not_valid") == false){
+                notice.classList.remove("filtered");
+                notice.style.display = "inline-block";
+            }
         }
+        
     }
 }
 
@@ -132,6 +149,8 @@ function filter(key){
     if (key < 0){ //search action
         let count = 0;
         key = document.getElementById("search").value.toUpperCase();
+        console.log(key)
+        console.log(noticeList)
         for (let i=0; i<noticeList.length; i++) {
             let notice = document.getElementById("notice_"+i)
             if (notice.innerText.toUpperCase().indexOf(key) > -1){

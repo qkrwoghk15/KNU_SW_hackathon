@@ -1,7 +1,7 @@
 .tab__menu {  
     display: inline-flex;
     position: relative;
-    left: 675px; top: -20px;
+    left: 675px; top: -30px;
     width: 250px;
 
     font-size: 18px;font-family: 'Noto Sans KR:wght', sans-serif; font-weight: 700;
