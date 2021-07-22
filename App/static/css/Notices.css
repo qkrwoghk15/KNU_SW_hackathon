@@ -22,6 +22,11 @@
     box-shadow: inset 0px 0px 5px white;
 }
 
+.notice * {
+    padding: 0;
+    margin: 3px;
+}
+
 .notices .notice {
     display: block;
 
@@ -41,11 +46,6 @@
     background: #DA212720;
 }
 
-.notice * {
-    padding: 0;
-    margin: 3px;
-}
-
 .notice .remainDays {
     position: relative;
     top: -10px;
@@ -60,13 +60,11 @@
     box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25),
         0 18px 36px -18px rgba(0, 0, 0, 0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.025);
 }
-
 .notice.d__day .remainDays {
     background-color:#5d7cb2;
     font-size: 14px; font-family: 'Gugi', cursive; font-weight: 700;
     padding: 9px 8px 6px 12px;
 }
-
 .notice.x__day .remainDays {
     background-color:gray;
 }
@@ -137,7 +135,7 @@
     top:90%;
 }
 
-/** LOADING CSS **/
+/************************************************************** LOADING CSS **************************************************************/
 @keyframes rotate-loading {
     0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
     100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}

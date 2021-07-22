@@ -11,6 +11,7 @@
     font-size: 21px; font-weight: 400; font-family: 'Noto Sans KR', sans-serif;
 }
 
+/* thead */
 thead tr {
     background: #DA2127;
     color: white;

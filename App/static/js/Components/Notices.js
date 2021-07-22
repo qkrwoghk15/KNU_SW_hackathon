@@ -2,13 +2,13 @@ let result = 0;
 let isFiltered = false;
 let noticeList = [], x_day_noticeList = [], d_day_noticeList = [], not_valid_notice = []
 
-function displayLoading(){
+function displayLoading(){ //Display Loading Div 
     document.querySelector(".notices").innerHTML = 
         "<div class='notice' onmouseout='outNotice(event)' onmouseover='overNotice(event)' style='cursor:pointer; cursor: hand; margin: auto; margin-top: calc( 25% - 115.5px );'>" 
         + "<span class='remainDays'>기한</span>"
-        + (selectedSite=="컴퓨터학부" ? "<p class='notice__genres'>작성자</p>" : "<h5 class='notice__year'>등록일</h5>")
-        + (selectedSite=="컴퓨터학부" ? "<h5 class='notice__year'>등록일</h5>" : "<h5 class='notice__year'>기한일</h5>")
-        + "<h3 class='notice__title'>&nbsp;&nbsp;공지</h3>"
+        + (selectedSite=="컴퓨터학부" ? "<p class='notice__genres'>작성자</p>" : "<h5 class='notice__year'>기한일</h5>")
+        + (selectedSite=="컴퓨터학부" ? "<h5 class='notice__year'>등록일</h5>" : "<h5 class='notice__year'>&nbsp;~&nbsp;</h5><h5 class='notice__year'>등록일</h5>")
+        + "<h3 class='notice__title'>&nbsp;&nbsp;"+ (selectedSite=="컴퓨터학부" ? "컴퓨터학부 공지" : "KNUCUBE 비교과프로그램" ) +"</h3>"
         + "<div class='loading-container'><div class='loading'></div><div id='loading-text'>loading</div></div>"
         + "<div class='notice__summary' style='top: 95%;'>공지 내용</div>"
         + "</div>";
@@ -19,7 +19,7 @@ function showList(noticeList){
     for (let i = 0; i<noticeList.length; i++) {
         let remainDaySpan = "", keywordHtml = ""
 
-        if (selectedSite=="컴퓨터학부"){
+        if (selectedSite=="컴퓨터학부"){ //컴퓨터학부 site
             if (noticeList[i].remainDays == '99999'){ //항시
                 x_day_noticeList.push(noticeList[i])
                 list += "<div class='notice x__day'"
@@ -28,10 +28,15 @@ function showList(noticeList){
             else { //공지
                 d_day_noticeList.push(noticeList[i])
                 list += "<div class='notice d__day'"
-                remainDaySpan = "<span class='remainDays'>D - <span style='font-size:16px;'>"+ noticeList[i].remainDays +"</span></span>"
+                if (noticeList[i].remainDays!=0){
+                    remainDaySpan = "<span class='remainDays'>D - <span style='font-size:16px;'>"+ noticeList[i].remainDays +"</span></span>"
+                }
+                else {
+                    remainDaySpan = "<span class='remainDays' style='background-color:red;'>D - Day</span>"
+                }
             }
         }
-        else{
+        else{ //knucube site
             d_day_noticeList.push(noticeList[i])
             list += "<div class='notice d__day'"
             remainDaySpan = "<span class='remainDays'>D - <span style='font-size:16px;'>"+ noticeList[i].remainDays +"</span></span>"
@@ -45,7 +50,7 @@ function showList(noticeList){
                 + (selectedSite=="컴퓨터학부" ? queryUrl : "") + noticeList[i].link + "')\" style='cursor:pointer; cursor: hand;'>" 
                 + remainDaySpan
                 + "<h5 class='notice__year'>" + (selectedSite=="컴퓨터학부" ? noticeList[i].registrationDate : noticeList[i].endDate) + "</h5>"
-                + (selectedSite=="컴퓨터학부" ? "<p class='notice__genres'>" + noticeList[i].writer + "</p>" : "<h5 class='notice__year'>" + noticeList[i].startDate + "</h5>")
+                + (selectedSite=="컴퓨터학부" ? "<p class='notice__genres'>" + noticeList[i].writer + "</p>" : "<h5 class='notice__year'>&nbsp;~&nbsp;</h5><h5 class='notice__year'>" + noticeList[i].startDate + "</h5>")
                 + "<h3 class='notice__title'>" + noticeList[i].title + "</h3>"
                 + keywordHtml
                 + "<div class='notice__summary'>" + noticeList[i].summary + "</div>"
@@ -54,7 +59,7 @@ function showList(noticeList){
     document.querySelector(".notices").innerHTML = list;
 }
 
-///////////////////////////////// Get yyyy-mm-dd form date /////////////////////////////////
+///////////////////////////////// Get yyyy-mm-dd form date BEG /////////////////////////////////
 function fillZero(num, len){
     str = num.toString();
     return str.length >= len ? str:new Array(len-str.length+1).join('0')+str;//남는 길이만큼 0으로 채움
@@ -69,8 +74,10 @@ function getTimeStamp(d, d_day_num) {
         fillZero(temp_d.getDate(), 2);
 
     return s;
-}///////////////////////////////// Get yyyy-mm-dd form date /////////////////////////////////
+}
+///////////////////////////////// Get yyyy-mm-dd form date FIN/////////////////////////////////
 
+/////////////////////////////////////// HIGHLIGHTING BEG ///////////////////////////////////////
 function unSetHighlightingDiv(){
     highlightedDiv.forEach( function(div){
         div.style.visibility = 'hidden';
@@ -91,8 +98,8 @@ function setHighlightingDiv(startDate, endDate){
 
 function highlightingOnCalendar(obj){
     let d_day_text = obj.innerText.split("\n")[0]
-    let d_day_num = parseInt(d_day_text.split("-")[1])
-    let startDateStr = (selectedSite=="컴퓨터학부" ? obj.innerText.split("\n")[1] : obj.innerText.split("\n")[2])
+    let d_day_num = (d_day_text!="D - Day" ? parseInt(d_day_text.split("-")[1]) : 0)
+    let startDateStr = (selectedSite=="컴퓨터학부" ? obj.innerText.split("\n")[1] : obj.innerText.split("\n")[3])
     let endDateStr = getTimeStamp(new Date(), d_day_num)
     let startDate = new Date(startDateStr)
     let endDate = new Date(endDateStr)
@@ -115,7 +122,7 @@ function overNotice(event){
     highlightingOnCalendar(event.currentTarget);
     event.currentTarget.getElementsByClassName('notice__summary')[0].style.visibility='visible';
 }
-
+/////////////////////////////////////// HIGHLIGHTING FIN ///////////////////////////////////////
 ///////////////////////////////// Search Function /////////////////////////////////
 function resetValid(){
     for (let i=0; i<noticeList.length; i++) {

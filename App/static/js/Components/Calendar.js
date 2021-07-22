@@ -91,7 +91,7 @@ function showValid(num){
 }
 
 function isValid(j,num){
-    temp = noticeList[j].registrationDate.split('-')
+    temp = (selectedSite=="컴퓨터학부" ? noticeList[j].registrationDate.split('-') : noticeList[j].startDate.split('-'))
     Rday = monthToDate[Number(temp[1])] + Number(temp[2])
     Dday = Number(noticeList[j].remainDays)+dates.getDate() + monthToDate[dates.getMonth()+1]
     Nday = num+monthToDate[today.getMonth()+1]
@@ -119,8 +119,6 @@ function Pointing(noticeList){
             v=isValid(j,i)
             if (v==2) arr[i] ++
         }
-        
-        
     }
 
     for(i=1;i<arr.length;i++){
@@ -129,8 +127,9 @@ function Pointing(noticeList){
             fillZero(today.getMonth() + 1, 2) + "-" +
             fillZero(i, 2);
 
-            document.getElementById(divId).innerHTML +=  "<div style='position:absolute;left:calc(38%);background:red; color:white; width:20px; height:20px; border-radius:50%;text-align:center; font-weight:bold;font-size:10pt;'>"+arr[i]+"</div>"
-            //`<span style='position:absolute;  top:calc( 90% - 14px ); left:calc(50%);border-radius:90%; background:red; text-align:center; font-size:20px; color:white'>&#9312</span>`//"&#9312"
+            document.getElementById(divId).innerHTML +=  "<div style='position:absolute;left:calc(38%);background:red; \
+                                                            color:white; width:20px; height:20px; \
+                                                            border-radius:50%;text-align:center; font-weight:bold;font-size:10pt;'>"+arr[i]+"</div>"
         }
         
     }

@@ -10,6 +10,7 @@ const tab_menu = document.querySelector(".tab__menu");
 let selectedSite = "컴퓨터학부"
 
 function getSite(site, method){
+    makeCalendar();
     displayLoading();
 
     const config = {
@@ -28,6 +29,7 @@ function getSite(site, method){
 }
 
 
+/******************************************************************* const variables BEG *******************************************************************/ 
 const siteInnerHTML_category_btn = {
     컴퓨터학부:
         `<form class = "category_form" method="POST" action = "/category"></form>
@@ -70,6 +72,9 @@ const icons = {
 
 const listItems = ["컴퓨터학부", "KNUCUBE"];
 
+/******************************************************************* const variables FIN *******************************************************************/ 
+
+/******************************************************************* const ELEMENTS BEG *******************************************************************/ 
 const iconTemplate = (path, box) => {
     return `
     <svg xmlns="http://www.w3.org/2000/svg" ${box}>

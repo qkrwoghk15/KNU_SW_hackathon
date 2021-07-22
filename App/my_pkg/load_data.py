@@ -7,7 +7,7 @@ from . import cube_crawling
 
 notice_list_dict = dict()
 
-def load_computer_data(url, index):
+def load_computer_data(url, index): #computer notice
     notice_list=[]
 
     if session.get(index): #if valid session of saved in es
@@ -20,7 +20,7 @@ def load_computer_data(url, index):
 
     return {"query_url": url, "notice_list": notice_list}
 
-def load_cube_data(index):
+def load_cube_data(index): #knucube notice
     cube_list=[]
 
     if session.get(index): #if valid session of saved in es

@@ -1,6 +1,7 @@
 let queryUrl, selected, selectedCategoryID;
 
 function getData(category, method){
+    makeCalendar();
     displayLoading();
 
     const config = {
@@ -29,8 +30,8 @@ function setCategory(obj){
     document.getElementById(selectedCategoryID).classList.remove('selected')
     selectedCategoryID = obj.id;
 
-    makeCalendar()
-    getData(selected.replace(/ /g,""), "get")
+    makeCalendar();
+    getData(selected.replace(/ /g,""), "get");
 }
 
 window.onload = function() {
