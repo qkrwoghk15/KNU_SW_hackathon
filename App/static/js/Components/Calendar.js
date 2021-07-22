@@ -106,6 +106,7 @@ function isValid(j,num){
 
 function Pointing(noticeList){
     var lastDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+    var arr = new Array(32).fill(0)
     for (i=1; i<=lastDate.getDate(); i++) {
         const divId = today.getFullYear() + "-" +
                         fillZero(today.getMonth() + 1, 2) + "-" +
@@ -116,11 +117,22 @@ function Pointing(noticeList){
         v = -1
         for (let j = 0; j<noticeList.length; j++){
             v=isValid(j,i)
-            if (v==2) break
+            if (v==2) arr[i] ++
         }
         
-        if (v==2){
-            thisDiv.innerHTML += redPoint
-        }
+        
     }
+
+    for(i=1;i<arr.length;i++){
+        if(arr[i]!=0){
+            const divId = today.getFullYear() + "-" +
+            fillZero(today.getMonth() + 1, 2) + "-" +
+            fillZero(i, 2);
+
+            document.getElementById(divId).innerHTML +=  "<div style='position:absolute;left:calc(38%);background:red; color:white; width:20px; height:20px; border-radius:50%;text-align:center; font-weight:bold;font-size:10pt;'>"+arr[i]+"</div>"
+            //`<span style='position:absolute;  top:calc( 90% - 14px ); left:calc(50%);border-radius:90%; background:red; text-align:center; font-size:20px; color:white'>&#9312</span>`//"&#9312"
+        }
+        
+    }
+    
 }
