@@ -5,7 +5,7 @@
   <summary>Table of Contents</summary>
   <ol>
     <li>
-      <a href="#about-the-project">Abstract</a>
+      <a href="#abstract">Abstract</a>
       <ul>
         <li><a href="#subject">Subject</a></li>
         <li><a href="#team">Team</a></li>
