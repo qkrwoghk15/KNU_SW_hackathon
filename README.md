@@ -105,7 +105,8 @@ D-day 정보가 없어 눈에 띄지 않으며, 사용자는 기한을 확인하
 
 ### Set Up
 
-아래 링크에서 `chromedriver_win32.zip`을 다운받아 설치하십시오. 해당 압축폴더를 풀면 나오는 chromedriver.exe를 `C:\Webdriver\chromedriver.exe`에 위치시키십시오.  
+아래 링크에서 `chromedriver_win32.zip`을 다운받아 설치하십시오.  
+압축폴더를 풀면 나오는 chromedriver.exe를 `C:\Webdriver\chromedriver.exe`에 위치시키십시오.  
 > https://chromedriver.storage.googleapis.com/index.html?path=91.0.4472.101/
 
 아래의 명령어를 통해 필요한 파이썬 모듈들을 설치하십시오.  
